@@ -203,7 +203,9 @@ public class GLTFUnarchiver {
             return count / 3
         case .triangleStrip:
             return count - 2
-        }
+		@unknown default:
+			fatalError("Unknown primitive type: \(primitiveType)")
+		}
     }
     
     private func loadCamera(index: Int) throws -> SCNCamera {

@@ -65,7 +65,8 @@ func createVertexArray(from source: SCNGeometrySource) throws -> [SCNVector3] {
     let dummy = SCNVector3()
     var vertices = [SCNVector3](repeating: dummy, count: source.vectorCount)
     
-    source.data.withUnsafeBytes { (p: UnsafePointer<Float32>) in
+    source.data.withUnsafeBytes { ptr in
+		let p = ptr.bindMemory(to: Float32.self)
         var index = source.dataOffset / 4
         let step = source.dataStride / 4
         for i in 0..<source.vectorCount {
@@ -85,9 +86,10 @@ func createIndexArray(from element: SCNGeometryElement) -> [Int] {
     var indices = [Int]()
     indices.reserveCapacity(indexCount)
     if element.bytesPerIndex == 2 {
-        element.data.withUnsafeBytes { (p: UnsafePointer<UInt16>) in
+        element.data.withUnsafeBytes { ptr in
             //var index = 0
             //let step = 2
+			let p = ptr.bindMemory(to: UInt16.self)
             for i in 0..<indexCount {
                 //indices[i] = Int(p[index])
                 //index += step
@@ -95,9 +97,10 @@ func createIndexArray(from element: SCNGeometryElement) -> [Int] {
             }
         }
     } else if element.bytesPerIndex == 4 {
-        element.data.withUnsafeBytes { (p: UnsafePointer<UInt32>) in
+        element.data.withUnsafeBytes { ptr in
             //var index = 0
             //let step = 4
+			let p = ptr.bindMemory(to: UInt32.self)
             for i in 0..<indexCount {
                 //indices[i] = Int(p[index])
                 //index += step
@@ -105,9 +108,10 @@ func createIndexArray(from element: SCNGeometryElement) -> [Int] {
             }
         }
     } else if element.bytesPerIndex == 8 {
-        element.data.withUnsafeBytes { (p: UnsafePointer<UInt64>) in
+        element.data.withUnsafeBytes { ptr in
             //var index = 0
             //let step = 8
+			let p = ptr.bindMemory(to: UInt64.self)
             for i in 0..<indexCount {
                 //indices[i] = Int(p[index])
                 //index += step
@@ -150,7 +154,8 @@ func createValueArray<T>(from data: Data, stride: Int, count: Int, type: T.Type)
 func createColor(_ color: [Float]) -> SKColor {
     let c: [CGFloat] = color.map { CGFloat($0) }
     assert(c.count >= 4)
-    return SKColor.init(red: c[0], green: c[1], blue: c[2], alpha: c[3])
+//	return SKColor.init(red: c[0], green: c[1], blue: c[2], alpha: c[3])
+    return SKColor.init(red: pow(c[0], 1 / 2.2), green: pow(c[1], 1 / 2.2), blue: pow(c[2], 1 / 2.2), alpha: c[3])
 }
 
 func createGrayColor(white: Float) -> SKColor {
