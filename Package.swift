@@ -24,13 +24,16 @@ let package = Package(
             dependencies: [],
             exclude: ["Info.plist"],
             resources: [
-                .copy("GLTFShaderModifierFragment_alphaCutoff.shader"),
-                .copy("GLTFShaderModifierSurface.shader"),
-                .copy("GLTFShaderModifierSurface_alphaModeBlend.shader"),
-                .copy("GLTFShaderModifierSurface_doubleSidedWorkaround.shader"),
-                .copy("schema/extensions/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness.shader"),
-                .copy("schema/extensions/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness_doubleSidedWorkaround.shader"),
-                .copy("schema/extensions/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness_texture_doubleSidedWorkaround.shader")
+              .copy("Resources/GLTFShaderModifierFragment_alphaCutoff.shader"),
+              .copy("Resources/GLTFShaderModifierSurface.shader"),
+              .copy("Resources/GLTFShaderModifierSurface_alphaModeBlend.shader"),
+              .copy("Resources/GLTFShaderModifierSurface_doubleSidedWorkaround.shader"),
+              .copy("Resources/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness.shader"),
+              .copy("Resources/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness_doubleSidedWorkaround.shader"),
+              .copy("Resources/KHR_materials_pbrSpecularGlossiness/GLTFShaderModifierSurface_pbrSpecularGlossiness_texture_doubleSidedWorkaround.shader"),
+              .copy("Resources/VRM/GLTFShaderModifierFragment_VRMUnlitTexture.shader"),
+              .copy("Resources/VRM/GLTFShaderModifierFragment_VRMUnlitTexture_Cutoff.shader"),
+              .copy("Resources/VRM/GLTFShaderModifierSurface_VRMMToon.shader"),
             ]
         ),
     ]

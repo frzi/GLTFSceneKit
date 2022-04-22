@@ -45,6 +45,8 @@ class GameViewController: NSViewController {
         self.gameView!.backgroundColor = NSColor.gray
         
         self.gameView!.addObserver(self, forKeyPath: "pointOfView", options: [.new], context: nil)
+
+        self.gameView!.delegate = self
     }
     
     func setScene(_ scene: SCNScene) {
@@ -99,7 +101,7 @@ class GameViewController: NSViewController {
         openPanel.canChooseFiles = true
         openPanel.canChooseDirectories = false
         openPanel.allowsMultipleSelection = false
-        openPanel.allowedFileTypes = ["gltf", "glb"]
+        openPanel.allowedFileTypes = ["gltf", "glb", "vrm"]
         openPanel.message = "Choose glTF file"
         openPanel.begin { (response) in
             if response == .OK {
@@ -122,3 +124,8 @@ class GameViewController: NSViewController {
     }
 }
 
+extension GameViewController: SCNSceneRendererDelegate {
+  func renderer(_ renderer: SCNSceneRenderer, didApplyAnimationsAtTime time: TimeInterval) {
+    self.gameView.scene?.rootNode.updateVRMSpringBones(time: time)
+  }
+}
